@@ -180,7 +180,7 @@ public class Otp extends AppCompatActivity {
 
                                                                 //Creating object for our interface
                                                                 RegisterAPI1 api = adapter.create(RegisterAPI1.class);
-
+//Hi 
                                                                 api.insertUser(Dfname.toString(),
                                                                         Dlname.toString(),
                                                                         Dmob.toString(),
