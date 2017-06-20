@@ -226,14 +226,27 @@ public class Otp extends AppCompatActivity {
                                                             }
 
 
-                                                        })
+                                                        });
 
-                                                        .setNegativeButton("Cancel",
+                                                alertDialogBuilderUserInput.setNegativeButton("Cancel",
                                                                 new DialogInterface.OnClickListener() {
                                                                     public void onClick(DialogInterface dialogBox, int id) {
                                                                         dialogBox.cancel();
                                                                     }
                                                                 });
+
+
+                                                alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                        new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int id) {
+
+                                                        Intent in = new Intent(Otp.this,Dashboard.class);
+                                                        startActivity(in);
+                                                    }
+                                                });
+
+
 
                                                 AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                                 alertDialogAndroid.show();
@@ -302,6 +315,16 @@ public class Otp extends AppCompatActivity {
                                                                 }
                                                             });
 
+                                            alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int id) {
+
+                                                            Intent in = new Intent(Otp.this,Dashboard.class);
+                                                            startActivity(in);
+                                                        }
+                                                    });
+
                                             AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                             alertDialogAndroid.show();
 
@@ -363,6 +386,15 @@ public class Otp extends AppCompatActivity {
                                                                     dialogBox.cancel();
                                                                 }
                                                             });
+                                            alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int id) {
+
+                                                            Intent in = new Intent(Otp.this,Dashboard.class);
+                                                            startActivity(in);
+                                                        }
+                                                    });
 
                                             AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                             alertDialogAndroid.show();
@@ -427,6 +459,16 @@ public class Otp extends AppCompatActivity {
                                                                 }
                                                             });
 
+                                            alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int id) {
+
+                                                            Intent in = new Intent(Otp.this,Dashboard.class);
+                                                            startActivity(in);
+                                                        }
+                                                    });
+
                                             AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                             alertDialogAndroid.show();
 
@@ -487,6 +529,16 @@ public class Otp extends AppCompatActivity {
                                                                 }
                                                             });
 
+                                            alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int id) {
+
+                                                            Intent in = new Intent(Otp.this,Dashboard.class);
+                                                            startActivity(in);
+                                                        }
+                                                    });
+
                                             AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                             alertDialogAndroid.show();
 
@@ -546,6 +598,15 @@ public class Otp extends AppCompatActivity {
                                                                     dialogBox.cancel();
                                                                 }
                                                             });
+                                            alertDialogBuilderUserInput.setNeutralButton("Skip",
+                                                    new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int id) {
+
+                                                            Intent in = new Intent(Otp.this,Dashboard.class);
+                                                            startActivity(in);
+                                                        }
+                                                    });
 
                                             AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                                             alertDialogAndroid.show();
