@@ -139,104 +139,119 @@ public class Otp extends AppCompatActivity {
                                                 // ToDo get user input here
 
                                                 if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                    pwText.setError("Please Enter UserName & Password.");
-                                                    Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
+                                                    pwText.setError("Please Enter Password.");
+                                                    Toast.makeText(c,"Please Enter Password.",Toast.LENGTH_LONG).show();
                                                     pwText.requestFocus();
+
                                                     return;
                                                 }
-                                                else
-                                                {
-
+                                                else if (TextUtils.isEmpty(repwText.getText().toString())) {
+                                                    repwText.setError("Please Enter Confirm.");
+                                                    Toast.makeText(c,"Please Enter Confirm.",Toast.LENGTH_LONG).show();
+                                                    repwText.requestFocus();
+                                                    return;
                                                 }
-                                                LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                                View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                                AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                                alertDialogBuilderUserInput.setView(mView);
+                                                else if (TextUtils.isEmpty(Inputuser.getText().toString())) {
+                                                    Inputuser.setError("Please Enter Confirm.");
+                                                    Toast.makeText(c,"Please Enter Confirm.",Toast.LENGTH_LONG).show();
+                                                    Inputuser.requestFocus();
+                                                    return;
+                                                }
 
-                                                alertDialogBuilderUserInput
-                                                        .setCancelable(false)
-                                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                            public void onClick(DialogInterface dialogBox, int id) {
-                                                                // ToDo get user input here
-                                                                SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                                String restoredText = prefs.getString("text", null);
-                                                                Dfname = prefs.getString("name1", null);
-                                                                Dlname = prefs.getString("lastname",null);
-                                                                Dcity =prefs.getString("city",null);
-                                                                Dmob =prefs.getString("mobile",null);
+                                                else {
+
+                                                    LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
+                                                    View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
+                                                    AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
+                                                    alertDialogBuilderUserInput.setView(mView);
+
+                                                    alertDialogBuilderUserInput
+                                                            .setCancelable(false)
+                                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                public void onClick(DialogInterface dialogBox, int id) {
+                                                                    // ToDo get user input here
+                                                                    SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
+                                                                    String restoredText = prefs.getString("text", null);
+                                                                    Dfname = prefs.getString("name1", null);
+                                                                    Dlname = prefs.getString("lastname",null);
+                                                                    Dcity =prefs.getString("city",null);
+                                                                    Dmob =prefs.getString("mobile",null);
 
 
-                                                                insertuser();
-                                                                Intent i = new Intent(Otp.this, Dashboard.class);
-                                                                startActivity(i);
+                                                                    insertuser();
+                                                                    Intent i = new Intent(Otp.this, Dashboard.class);
+                                                                    startActivity(i);
 
-                                                            }
+                                                                }
 
-                                                            private void insertuser() {
+                                                                private void insertuser() {
 
-                                                                RestAdapter adapter = new RestAdapter.Builder()
-                                                                        .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                        .build(); //Finally building the adapter
+                                                                    RestAdapter adapter = new RestAdapter.Builder()
+                                                                            .setEndpoint(ROOT_URL) //Setting the Root URL
+                                                                            .build(); //Finally building the adapter
 
-                                                                //Creating object for our interface
-                                                                RegisterAPI1 api = adapter.create(RegisterAPI1.class);
-//Hi 
-                                                                api.insertUser(Dfname.toString(),
-                                                                        Dlname.toString(),
-                                                                        Dmob.toString(),
-                                                                        Dcity.toString(),
-                                                                        Dfname.toString(),
-                                                                        "Allopathic Doctor",
-                                                                        acTextView.getText().toString(),
-                                                                        auto.getText().toString(),
-                                                                        Inputuser.getText().toString(),
-                                                                        Email.getText().toString(),
-                                                                        pwText.getText().toString(),
-                                                                        repwText.getText().toString(),
-                                                                        //
-                                                                        new Callback<Response>() {
-                                                                            @Override
-                                                                            public void success(Response result, Response response2) {
-                                                                                BufferedReader reader = null;
+                                                                    //Creating object for our interface
+                                                                    RegisterAPI1 api = adapter.create(RegisterAPI1.class);
+//Hi
+                                                                    api.insertUser(Dfname.toString(),
+                                                                            Dlname.toString(),
+                                                                            Dmob.toString(),
+                                                                            Dcity.toString(),
+                                                                            Dfname.toString(),
+                                                                            "Allopathic Doctor",
+                                                                            acTextView.getText().toString(),
+                                                                            auto.getText().toString(),
+                                                                            Inputuser.getText().toString(),
+                                                                            Email.getText().toString(),
+                                                                            pwText.getText().toString(),
+                                                                            repwText.getText().toString(),
+                                                                            //
+                                                                            new Callback<Response>() {
+                                                                                @Override
+                                                                                public void success(Response result, Response response2) {
+                                                                                    BufferedReader reader = null;
 
-                                                                                //An string to store output from the server
-                                                                                String output = "";
+                                                                                    //An string to store output from the server
+                                                                                    String output = "";
 
-                                                                                try {
-                                                                                    //Initializing buffered reader
-                                                                                    reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
+                                                                                    try {
+                                                                                        //Initializing buffered reader
+                                                                                        reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
 
-                                                                                    //Reading the output in the string
-                                                                                    output = reader.readLine();
-                                                                                } catch (IOException e) {
-                                                                                    e.printStackTrace();
+                                                                                        //Reading the output in the string
+                                                                                        output = reader.readLine();
+                                                                                    } catch (IOException e) {
+                                                                                        e.printStackTrace();
+                                                                                    }
+
+                                                                                    //Displaying the output as a toast
+                                                                                    Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
+
                                                                                 }
 
-                                                                                //Displaying the output as a toast
-                                                                                Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
+                                                                                @Override
+                                                                                public void failure(RetrofitError error) {
+                                                                                    Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            });
 
-                                                                            }
-
-                                                                            @Override
-                                                                            public void failure(RetrofitError error) {
-                                                                                Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                            }
-                                                                        });
-
-                                                            }
+                                                                }
 
 
-                                                        })
+                                                            })
 
-                                                        .setNegativeButton("Cancel",
-                                                                new DialogInterface.OnClickListener() {
-                                                                    public void onClick(DialogInterface dialogBox, int id) {
-                                                                        dialogBox.cancel();
-                                                                    }
-                                                                });
+                                                            .setNegativeButton("Cancel",
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialogBox, int id) {
+                                                                            dialogBox.cancel();
+                                                                        }
+                                                                    });
 
-                                                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                                alertDialogAndroid.show();
+                                                    AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                                                    alertDialogAndroid.show();
+
+                                                }
+
 
                                             }
 
