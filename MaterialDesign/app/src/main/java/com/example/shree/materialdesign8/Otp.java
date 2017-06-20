@@ -187,12 +187,12 @@ public class Otp extends AppCompatActivity {
                                                                         Dcity.toString(),
                                                                         Dfname.toString(),
                                                                         "Allopathic Doctor",
-                                                                        acTextView.toString(),
-                                                                        auto.toString(),
-                                                                        Inputuser.toString(),
-                                                                        Email.toString(),
-                                                                        pwText.toString(),
-                                                                        repwText.toString(),
+                                                                        acTextView.getText().toString(),
+                                                                        auto.getText().toString(),
+                                                                        Inputuser.getText().toString(),
+                                                                        Email.getText().toString(),
+                                                                        pwText.getText().toString(),
+                                                                        repwText.getText().toString(),
                                                                         //
                                                                         new Callback<Response>() {
                                                                             @Override
