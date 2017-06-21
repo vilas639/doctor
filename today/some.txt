@@ -1,7 +1,0 @@
-<<<<<<< HEAD
-
-Hi Vinod Rathod Happy
-
-=======
-Hi Vinod Rathod Happy
->>>>>>> 5edcfd7bc844cae90f1298b67edbdb76b15c1b62
