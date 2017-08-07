@@ -69,18 +69,6 @@
 
                 </RadioGroup>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:textStyle="bold"
-                    android:id="@+id/select"
-                    android:textColor="#ffffff"
-                    android:background="#EF8D14"
-                    android:text="Select Qualification"
-                    android:layout_below="@id/radiogroup"
-                    android:layout_marginTop="20dp"
-                    android:textSize="20dp"
-                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -88,7 +76,7 @@
                     android:textStyle="bold"
                     android:text="Select"
                     android:id="@+id/tv_android"
-                    android:layout_below="@+id/select"
+                    android:layout_below="@+id/radiogroup"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/rectangle"
                     android:textSize="15dp"
@@ -108,13 +96,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="I am not an Undergraduate student"
+                    android:text="@string/i_amt"
                     android:textSize="15dp"
                     android:textColor="#ffffff"
                     android:background="@drawable/ripple"
                     android:textAllCaps="false"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@+id/next"/>
+                    android:layout_below="@+id/next"
+                    android:id="@+id/iam"/>
 
             </RelativeLayout>
         </RelativeLayout>

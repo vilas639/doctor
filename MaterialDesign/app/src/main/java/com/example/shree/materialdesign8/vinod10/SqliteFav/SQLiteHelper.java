@@ -14,7 +14,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String KEY_ID="id";
 
-    public static final String TABLE_NAME="demoTable15";
+    public static final String TABLE_NAME="demoTable20";
 
     public static final String KEY_Name="name";
 
@@ -30,9 +30,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database)
     {
-        String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
+        String CREATE_TABLE="CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
         database.execSQL(CREATE_TABLE);
-        //database.execSQL("INSERT INTO demoTable15 (id,name) VALUES(12,'vilas');");
+        database.execSQL("INSERT INTO demoTable20 (id,name) VALUES(100,'vilas');");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

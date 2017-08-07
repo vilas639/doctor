@@ -59,14 +59,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
-
     <string name="number_order">Number of order : </string>
     <string name="order">Order</string>
     <string-array name="main_menu_list">
+
         <item>List Menu</item>
         <item>Your Order</item>
         <item>Confirmation</item>
+
     </string-array>
     <string name="order_alert">You have not ordered yet</string>
     <string name="alert">Failed to connect internet!</string>
@@ -75,8 +75,14 @@
     <string name="website1">www.doctor.com</string>
 
     <string name="ComingSoon">Coming Soon..!!</string>
-    <string name="registration">Thank you for submitting your registration information..!!</string>
+    <string name="registration">We will be verify...!!</string>
+    <string name="userinform">Are You Sure To Save Data!!</string>
+    <string name="favadd">You have sucessfully added favourite in your list...!!</string>
+    <string name="favourite">You have successfully added favourite data in your list..!!</string>
 
     <string name="firebase_applicatioin_id" translatable="false">1:98072223824:android:bd88fc76511f4452</string>
     <string name="facebook_application_id" translatable="false">791651427668713</string>
+
+    <string name="i_amt">I am not an Undergraduate student</string>
+    <string name="finish">Finish</string>
 </resources>

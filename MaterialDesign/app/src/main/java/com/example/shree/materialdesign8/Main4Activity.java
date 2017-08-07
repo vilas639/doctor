@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.example.shree.materialdesign8.allocator.activity.ActivityCategoryLabAreaList;
 import com.example.shree.materialdesign8.allocator.activity.LabCategoryRating;
 import com.example.shree.materialdesign8.allocator.activity.LandmarkWise;
-import com.example.shree.materialdesign8.vilas.searchviewjson.activity.Booklist;
+import com.example.shree.materialdesign8.login.MainActivity;
+
 import com.example.shree.materialdesign8.vinod.navigationdrawer.Dashboard;
+import com.example.shree.materialdesign8.vinod1.alertregistration.Address;
+import com.example.shree.materialdesign8.vinod1.alertregistration.Address1;
 import com.example.shree.materialdesign8.vinod2.labcategory.area.Areawise;
 import com.example.shree.materialdesign8.vinod5.countrycodepicker.CountryCodePicker1;
 import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.Specility;
@@ -79,13 +82,15 @@ public class Main4Activity extends AppCompatActivity {
         patient5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Main4Activity.this);
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(Main4Activity.this);
                 builder.setTitle("Coming Soon");
                 builder.setCancelable(true);
                 builder.setMessage(getResources().getString(R.string.ComingSoon));
                 builder.setPositiveButton("OK", null);
                 builder.setNegativeButton("Cancel", null);
-                builder.show();
+                builder.show();*/
+                Intent in=new Intent(Main4Activity.this,ImageAttachment1.class);
+                startActivity(in);
                 Toast.makeText(Main4Activity.this, "Ambulance", Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,7 +150,7 @@ public class Main4Activity extends AppCompatActivity {
                         sleep(100);
                         waited += 100;
                     }
-                    Intent intent = new Intent(Main4Activity.this,Specility.class);
+                    Intent intent = new Intent(Main4Activity.this,MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     Main4Activity.this.finish();
@@ -184,7 +189,7 @@ public class Main4Activity extends AppCompatActivity {
                         sleep(100);
                         waited += 100;
                     }
-                    Intent intent = new Intent(Main4Activity.this,Booklist.class);
+                    Intent intent = new Intent(Main4Activity.this,Address1.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     Main4Activity.this.finish();

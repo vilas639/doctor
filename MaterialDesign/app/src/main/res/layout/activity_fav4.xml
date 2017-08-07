@@ -19,7 +19,7 @@
         android:textSize="26sp"
         android:textStyle="bold" />
 
-    <EditText
+    <MultiAutoCompleteTextView
         android:id="@+id/editText1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -30,24 +30,31 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"/>
 
-    <ListView
+
+   <!-- <ListView
         android:id="@+id/listview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/editText1"
         android:layout_above="@+id/button1">
-    </ListView>
-  <!--  <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Display"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/ripple"/>-->
+    </ListView>-->
+    <!-- <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Display"
+         android:id="@+id/button3"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true"
+         android:background="@drawable/ripple"/>-->
 
     <Button
         android:layout_width="wrap_content"
@@ -59,14 +66,16 @@
         android:layout_alignParentStart="true"
         android:background="@drawable/ripple"/>
 
-    <Button
+   <!-- <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
+        android:onClick="showSelectedItems"
         android:id="@+id/button2"
         android:background="@drawable/ripple"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
 
+        android:layout_centerHorizontal="true" />-->
 </RelativeLayout>

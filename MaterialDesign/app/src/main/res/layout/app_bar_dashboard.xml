@@ -32,7 +32,8 @@
             android:layout_height="match_parent"
             android:background="#5fb0c9"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/dashborad">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -96,6 +97,7 @@
                                 android:id="@+id/editTextUsername"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="number"
                                 android:hint="Patient Mobile No."
                                 android:layout_marginRight="10dp"
                                 android:layout_marginLeft="10dp"
@@ -103,6 +105,25 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/autoComplete"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="state"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp">
+                            </AutoCompleteTextView>
+                            <AutoCompleteTextView
+                                android:id="@+id/autoComplete1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="City"
+
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp">
+                            </AutoCompleteTextView>
+                            <AutoCompleteTextView
+                                android:id="@+id/autoComplet2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Landmark"
@@ -128,11 +149,14 @@
                                 android:textColor="#000000"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginLeft="10dp"/>
+
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:paddingTop="2dp">
+                            android:paddingTop="2dp"
+                            android:id="@+id/recentadvice"
+                            >
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -204,6 +228,7 @@
                         </LinearLayout>
 
                             <TextView
+                                android:id="@+id/favraoutetitle"
                                 android:text="Select Favourite"
                                 android:textStyle="bold"
                                 android:layout_width="wrap_content"
@@ -213,7 +238,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="52dp"
                                 android:background="@drawable/rectangle"
-                                android:textColor="#000000"/>
+                                android:textColor="#000000"
+                                />
                            <!-- <Spinner
                                 android:id="@+id/spinner1"
                                 android:layout_width="match_parent"
@@ -227,7 +253,25 @@
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="15dp"
                                 android:layout_height="52dp"/>-->
+                              <LinearLayout
+                                  android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:orientation="vertical"
+                                  android:id="@+id/cameradiscription"
+                                  android:visibility="invisible">
+                                  <ImageView
+                                      android:layout_width="match_parent"
+                                      android:layout_height="300dp"
+                                      android:id="@+id/imageView"
+                                      android:src="@drawable/image_attachhh"
+                                      android:layout_above="@+id/buttonUpload"
+                                      android:layout_alignParentLeft="true"
+                                      android:layout_marginTop="7dp"
+                                      android:visibility="gone"
+                                      android:layout_alignParentStart="true" />
 
+
+                              </LinearLayout>
                             <LinearLayout
 
                                 android:layout_width="match_parent"
@@ -293,6 +337,20 @@
                                 android:id="@+id/buttonUpload"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="8dp"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/string_upload_image"
+                                android:textStyle="bold"
+                                android:textColor="#ffffff"
+                                android:background="#EF8D14"
+                                android:id="@+id/buttonUpload1"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="8dp"
+                               android:visibility="invisible"
+
+                               />
 
                         </LinearLayout>
 
@@ -367,14 +425,14 @@
             fab:fab_label="Set Favourite"
             fab:fab_size="mini"/>
 
-       <!-- <com.github.clans.fab.FloatingActionButton
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/pa"
-            fab:fab_label="Disease/Test"
+            fab:fab_label="Recent advice"
+            android:visibility="gone"
             fab:fab_size="mini"/>
--->
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/material_design_floating_action_menu_item5"
             android:layout_width="wrap_content"

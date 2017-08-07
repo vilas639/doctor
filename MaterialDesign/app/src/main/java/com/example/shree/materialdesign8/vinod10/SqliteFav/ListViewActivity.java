@@ -65,7 +65,7 @@ public class ListViewActivity extends Activity {
 
         SQLITEDATABASE = SQLITEHELPER.getWritableDatabase();
 
-        cursor = SQLITEDATABASE.rawQuery("SELECT * FROM demoTable15", null);
+        cursor = SQLITEDATABASE.rawQuery("SELECT * FROM demoTable20 ", null);
 
         ID_ArrayList.clear();
         NAME_ArrayList.clear();

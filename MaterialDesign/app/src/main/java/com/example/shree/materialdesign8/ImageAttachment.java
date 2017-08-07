@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.shree.materialdesign8.vinod2.labcategory.Thankyou;
+import com.example.shree.materialdesign8.vinod2.labcategory.Varify;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
@@ -31,10 +34,13 @@ public class ImageAttachment extends AppCompatActivity implements Imageutils.Ima
 
     private Bitmap bitmap;
     private String file_name;
-
+    String count = "5";
+  int n;
     Imageutils imageutils;
-    public static final String UPLOAD_URL = "http://ec2-35-154-210-22.ap-south-1.compute.amazonaws.com/dpts/doctor/ecommerce/upload.php";
+  //public static final String UPLOAD_URL = "http://ec2-35-154-210-22.ap-south-1.compute.amazonaws.com/dpts/doctor/ecommerce/upload.php";
+  public static final String UPLOAD_URL ="http://vilasjadhav.16mb.com/ecommerce/upload.php";
     public static final String UPLOAD_KEY = "image";
+    public static final String ref = "ref";
     private Button buttonUpload;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +88,7 @@ public class ImageAttachment extends AppCompatActivity implements Imageutils.Ima
     private void uploadImage(){
         class UploadImage extends AsyncTask<Bitmap,Void,String> {
 
-
+            ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
 
             @Override
@@ -100,9 +106,9 @@ public class ImageAttachment extends AppCompatActivity implements Imageutils.Ima
 
                 // Setting Dialog Title
                 alertDialog.setTitle("Your Information...");
-
+                alertDialog.setCancelable(false);
                 // Setting Dialog Message
-                alertDialog.setMessage("Your Reference id is");
+                alertDialog.setMessage("Your Reference id is"+String.valueOf(n));
 
                 // Setting Icon to Dialog
                 //alertDialog.setIcon(R.drawable.save);
@@ -112,7 +118,7 @@ public class ImageAttachment extends AppCompatActivity implements Imageutils.Ima
                     public void onClick(DialogInterface dialog, int which) {
                         // User pressed YES button. Write Logic Here
 
-                       Intent i=new Intent(ImageAttachment.this,Otp1.class);
+                       Intent i=new Intent(ImageAttachment.this,Varify.class);
                         startActivity(i);
                       //  Toast.makeText(getApplicationContext(),"thanks",Toast.LENGTH_LONG).show();
                     }
@@ -146,13 +152,13 @@ public class ImageAttachment extends AppCompatActivity implements Imageutils.Ima
                 String uploadImage = getStringImage(bitmap);
                 Random rand = new Random();
 
-                int  n = rand.nextInt(00145) + 1;
-
-               // count=String.valueOf(n);
+                n = rand.nextInt(00145) + 1;
+                count=String.valueOf(n);
+              String count=String.valueOf(n);
                 HashMap<String,String> data = new HashMap<>();
 
                 data.put(UPLOAD_KEY, uploadImage);
-                //data.put(ref,count);
+                data.put(ref,count);
 
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
 

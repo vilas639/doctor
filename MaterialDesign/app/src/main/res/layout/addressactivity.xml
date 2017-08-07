@@ -14,6 +14,7 @@
             android:text="Clinic Address And office Address"
             android:textSize="17sp"
             android:textStyle="bold"
+
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"/>
 
@@ -49,12 +50,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Address Line 1"
+                    android:imeOptions="actionNext"
+
                     android:layout_marginLeft="5dp"
                     android:id="@+id/userInputadd"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Address Line 2"
+                    android:imeOptions="actionNext"
+
                     android:layout_marginLeft="5dp"
                     android:id="@+id/userInputadd2"/>
 
@@ -74,15 +79,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Address Line 1"
+                    android:imeOptions="actionNext"
+
                     android:layout_marginLeft="5dp"
                     android:id="@+id/userInputaddC"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Address Line 2"
+                    android:imeOptions="actionDone"
+
                     android:layout_marginLeft="5dp"
                     android:id="@+id/userInputaddc2"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="25dp"
+    android:id="@+id/skip"
+    android:text="Skip"/>
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nextfinal"
+                    android:text="Next"/>
+                    </LinearLayout>
                     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

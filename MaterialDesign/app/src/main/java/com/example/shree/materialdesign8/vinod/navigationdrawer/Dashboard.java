@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,8 +33,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +51,7 @@ import com.example.shree.materialdesign8.AlertDialogRadio2;
 
 import com.example.shree.materialdesign8.DataObject;
 import com.example.shree.materialdesign8.DataObject1;
+import com.example.shree.materialdesign8.ImageAttachment;
 import com.example.shree.materialdesign8.Imageutils;
 import com.example.shree.materialdesign8.Notification2;
 import com.example.shree.materialdesign8.Otp;
@@ -56,16 +61,23 @@ import com.example.shree.materialdesign8.SpinnerAdapter1;
 
 
 import com.example.shree.materialdesign8.SpinnerAdapter9;
+import com.example.shree.materialdesign8.adapter.Internet_Connection;
 import com.example.shree.materialdesign8.allocator.activity.ActivityCategoryList;
 import com.example.shree.materialdesign8.allocator.activity.NamePatient;
 import com.example.shree.materialdesign8.allocator.activity.RefUploadPhoto1;
 import com.example.shree.materialdesign8.allocator.activity.TodaysPatient;
 import com.example.shree.materialdesign8.vinod.SqliteFav.SQLiteHelper;
+import com.example.shree.materialdesign8.vinod.SqliteFav.ShowDb;
 import com.example.shree.materialdesign8.vinod.confirmation.ConfirmationMassage;
+import com.example.shree.materialdesign8.vinod.confirmation.ConfirmationMassagePhoto;
 import com.example.shree.materialdesign8.vinod1.alertregistration.LoginAlert;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation;
+import com.example.shree.materialdesign8.vinod10.SqliteFav.Fav5;
+import com.example.shree.materialdesign8.vinod10.SqliteFav.ShowDb5;
 import com.example.shree.materialdesign8.vinod11.editprofile.EditProfile;
 import com.example.shree.materialdesign8.vinod11.editprofile.RegisterProfile;
 import com.example.shree.materialdesign8.vinod2.labcategory.LabCategoty;
+import com.example.shree.materialdesign8.vinod2.labcategory.Thankyou;
 import com.example.shree.materialdesign8.vinod3.selectTestDisease.SelectDTest;
 import com.example.shree.materialdesign8.vinod3.selectTestDisease.SelectDTest1;
 import com.example.shree.materialdesign8.vinod4.setfavorite.SetFavorite;
@@ -73,6 +85,12 @@ import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.HttpSer
 import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter1;
 
 
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapterArea;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapterCity;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapterState;
+import com.example.shree.materialdesign8.vinod7.sqlFav.ShowDb2;
+import com.example.shree.materialdesign8.vinod8.sqliteFav.ShowDb3;
+import com.example.shree.materialdesign8.vinod9.sqliteFav.ShowDb4;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.example.shree.materialdesign8.R;
@@ -94,11 +112,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener,Imageutils.ImageAttachmentListener, AlertDialogRadio2.AlertPositiveListener2,MultiSelectionSpinner.OnMultipleItemsSelectedListener, AdapterView.OnItemSelectedListener {
-
+String Fav11,Fav12,Fav13,Fav14,Fav15;
     ProgressBar MobileProgressBar;
+    SharedPreferences  sharedPreferences;
     String HttpUrl = "http://35.154.210.22/dpts/api/onclickfilter/MobileData.php";
     List<String> MobileList = new ArrayList<String>();
     ArrayAdapter<String> MobileArrayAdapter;
+
 
     SQLiteHelper SQLITEHELPER;
     SQLiteDatabase SQLITEDATABASE;
@@ -109,7 +129,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     private String k;
     private TextView tv;
     private EditText editTextName;
-  private AutoCompleteTextView acTextView;
+  private AutoCompleteTextView acTextView,acTextView1,acTextView2;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextEmail;
@@ -119,7 +139,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     String count;
     String a1,j,l;
     private DataObject1 d1,f1;
-
+    Internet_Connection internet_conn;
 
 
 
@@ -130,6 +150,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     //volly   queue responce  add
     private RequestQueue queue;
     private RequestQueue queue1;
+    private RequestQueue queueCity;
+    private RequestQueue queue1Area;
 
 
     ImageView iv_attachment;
@@ -138,6 +160,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     private Bitmap bitmap;
     private String file_name;
     Imageutils imageutils;
+
+    public static final String UPLOAD_URL1 = "http://ec2-35-154-210-22.ap-south-1.compute.amazonaws.com/dpts/doctor/ecommerce/upload.php";
+    public static final String UPLOAD_KEY1 = "image";
 
 
     public static final String UPLOAD_URL = "http://ec2-35-154-210-22.ap-south-1.compute.amazonaws.com/dpts/doctor/ecommerce/upload1.php";
@@ -152,9 +177,14 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     public static String items = "items";
     public static String items1 = "items1";
     String n1, m, a, e;
-    private Button buttonUpload;
-     String email2;
+    private Button buttonUpload,buttonUpload1;
+     String email2,autostate;
     //String  Doctname;
+    LinearLayout recentadvice,cameradiscription;
+    Spinner spinnerfav;
+    TextView favraoutetitle;
+
+    int n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,9 +192,18 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_dashboard2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        internet_conn = new Internet_Connection(getApplicationContext());
         tv = (TextView) findViewById(R.id.ptn);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
+
+        iv_attachment=(ImageView)findViewById(R.id.imageView);
+
+        recentadvice=(LinearLayout)findViewById(R.id.recentadvice);
+        cameradiscription=(LinearLayout)findViewById(R.id.cameradiscription);
+        spinnerfav=(Spinner)findViewById(R.id.spinner2);
+        favraoutetitle=(TextView)findViewById(R.id.favraoutetitle);
+
         //  editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         //  editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         n1 = editTextName.getText().toString();
@@ -195,19 +234,91 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         //end (otp)
         Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        spinner.setPrompt("PROMPT");
         spinner.setOnItemSelectedListener(this);
+        SharedPreferences prefs1 = getSharedPreferences(ShowDb.Fav1, MODE_PRIVATE);
+        String restoredText1 = prefs1.getString("text", null);
+
+        Fav11 = prefs1.getString("favrename", null);
+        if(Fav11 == null)
+        {
+            Toast.makeText(Dashboard.this,"nothing set",Toast.LENGTH_LONG).show();
+           Fav11="Favourite-1";
+        }
+        else
+        {
+            Fav11.toString();
+        }
+
+        SharedPreferences prefs2 = getSharedPreferences(ShowDb2.Fav2, MODE_PRIVATE);
+        String restoredText2 = prefs2.getString("text", null);
+
+        Fav12 = prefs2.getString("favrename", null);
+        if(Fav12 == null)
+        {
+            Toast.makeText(Dashboard.this,"nothing set",Toast.LENGTH_LONG).show();
+            Fav12="Favourite-2";
+        }
+        else
+        {
+            Fav12.toString();
+        }
+
+        SharedPreferences prefs3 = getSharedPreferences(ShowDb3.Fav3, MODE_PRIVATE);
+        String restoredText3 = prefs3.getString("text", null);
+
+        Fav13 = prefs3.getString("favrename", null);
+        if(Fav13 == null)
+        {
+            Toast.makeText(Dashboard.this,"nothing set",Toast.LENGTH_LONG).show();
+            Fav13="Favourite-3";
+        }
+        else
+        {
+            Fav13.toString();
+        }
+
+        SharedPreferences prefs4 = getSharedPreferences(ShowDb4.Fav4, MODE_PRIVATE);
+        String restoredText4 = prefs4.getString("text", null);
+
+        Fav14 = prefs4.getString("favrename", null);
+        if(Fav14 == null)
+        {
+            Toast.makeText(Dashboard.this,"nothing set",Toast.LENGTH_LONG).show();
+            Fav14="Favourite-4";
+        }
+        else
+        {
+            Fav14.toString();
+        }
+
+        SharedPreferences prefs5 = getSharedPreferences(ShowDb5.Fav5, MODE_PRIVATE);
+        String restoredText5 = prefs5.getString("text", null);
+
+        Fav15 = prefs5.getString("favrename", null);
+        if(Fav15 == null)
+        {
+            Toast.makeText(Dashboard.this,"nothing set",Toast.LENGTH_LONG).show();
+            Fav15="Favourite-5";
+        }
+        else
+        {
+            Fav15.toString();
+        }
 
         List<String> categories = new ArrayList<String>();
         categories.add("Select-Category");
-        categories.add("Favourite-1");
-        categories.add("Favourite-2");
-        categories.add("Favourite-3");
-        categories.add("Favourite-4");
-        categories.add("Favourite-5");
+        categories.add(Fav11.toString());
+        categories.add(Fav12.toString());
+        categories.add(Fav13.toString());
+        categories.add(Fav14.toString());
+        categories.add(Fav15.toString());
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       // spinner.setPrompt("Select club");
         spinner.setAdapter(dataAdapter);
+
         Button addmoretest = (Button) findViewById(R.id.addmoretest);
         // a=editTextPassword.getText().toString();
         // e=editTextEmail.getText().toString();
@@ -222,7 +333,48 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         });
 
         final CheckBox satView = (CheckBox) findViewById(R.id.chk);
-        satView.setOnClickListener(new View.OnClickListener()
+        satView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                {
+                    Toast.makeText(getApplication(), "checked", Toast.LENGTH_LONG).show();
+                    View.OnClickListener listener1 = new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            //** Getting the fragment manager *//*
+                            FragmentManager manager = getFragmentManager();
+
+                            //** Instantiating the DialogFragment class *//*
+                            AlertDialogRadio2 alert = new AlertDialogRadio2();
+
+                            //** Creating a bundle object to store the selected item's index *//*
+                            Bundle b = new Bundle();
+
+                            //** Storing the selected item's index in the bundle object*//*
+                            b.putInt("position", position);
+
+                            //** Setting the bundle object to the dialog fragment object*//*
+                            alert.setArguments(b);
+
+                            //** Creating the dialog fragment object, which will in turn open the alert dialog window*//*
+                            alert.show(manager, "alert_dialog_radio");
+                        }
+
+
+                    };
+                   satView.setOnClickListener(listener1);
+                }
+
+                else {
+                    Toast.makeText(getApplication(), "Unchecked", Toast.LENGTH_LONG).show();
+                    satView.setChecked(false);
+                }
+            }
+        });
+        /*satView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -236,22 +388,22 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         @Override
                         public void onClick(View v)
                         {
-                            /** Getting the fragment manager */
+                            *//** Getting the fragment manager *//*
                             FragmentManager manager = getFragmentManager();
 
-                            /** Instantiating the DialogFragment class */
+                            *//** Instantiating the DialogFragment class *//*
                             AlertDialogRadio2 alert = new AlertDialogRadio2();
 
-                            /** Creating a bundle object to store the selected item's index */
+                            *//** Creating a bundle object to store the selected item's index *//*
                             Bundle b = new Bundle();
 
-                            /** Storing the selected item's index in the bundle object*/
+                            *//** Storing the selected item's index in the bundle object*//*
                             b.putInt("position", position);
 
-                            /** Setting the bundle object to the dialog fragment object*/
+                            *//** Setting the bundle object to the dialog fragment object*//*
                             alert.setArguments(b);
 
-                            /** Creating the dialog fragment object, which will in turn open the alert dialog window*/
+                            *//** Creating the dialog fragment object, which will in turn open the alert dialog window*//*
                             alert.show(manager, "alert_dialog_radio");
                         }
 
@@ -259,10 +411,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     };
                     satView.setOnClickListener(listener1);
                 } else {
-                    Toast.makeText(getApplication(), "Unchecked", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(), "Unchecked", ToastacTextView.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
          /*Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -307,56 +459,94 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         queue = Volley.newRequestQueue(this);
         queue1 = Volley.newRequestQueue(this);
+
+
         requestJsonObject();
+
         //requestJsonObject1();
 
 
         imageutils = new Imageutils(this);
         iv_attachment = (ImageView) findViewById(R.id.imageView);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-      /* iv_attachment.setOnClickListener(new View.OnClickListener() {
+        buttonUpload1 = (Button) findViewById(R.id.buttonUpload1);
+       iv_attachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageutils.imagepicker(1);
             }
-        });*/
+        });
         buttonUpload.setOnClickListener(this);
+        buttonUpload1.setOnClickListener(this);
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String editTextName1 = editTextName.getText().toString();
-                String editTextUsername1 = editTextUsername.getText().toString();
+                if (internet_conn.isConnectingToInternet() == true) {
+                    String editTextName1 = editTextName.getText().toString();
+                    String editTextUsername1 = editTextUsername.getText().toString();
 
-                String acTextView1 = acTextView.getText().toString();
-               // String zipcode=name1.toString();
-                String zipcode=d1.getPincode().toString();
-                if (editTextName.getText().toString().length() == 0 && editTextUsername.getText().toString().length() == 0 && acTextView.getText().toString().length() == 0)
-                {
-                    Toast.makeText(getApplicationContext(), "plz enter all details", Toast.LENGTH_SHORT).show();
-                } else {
+                    String acTextView1 = acTextView.getText().toString();
+                    // String zipcode=name1.toString();
+                    String zipcode=d1.getPincode().toString();
+                    if (editTextName.getText().toString().length() == 0 && editTextUsername.getText().toString().length() == 0 && acTextView.getText().toString().length() == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "plz enter all details", Toast.LENGTH_SHORT).show();
+                    }
+                  /*  else if(j.toString().equals("Select-Category"))
+                    {
+                        Toast.makeText(Dashboard.this,"please select",Toast.LENGTH_LONG).show();
+                    }*/
+                    else {
 
-                    //Converting phnumber to long type
-                    //long phno = Long.parseLong(phnumber1);
-                    //Creating Bundle object
-                    Bundle k = new Bundle();
+                        //Converting phnumber to long type
+                        //long phno = Long.parseLong(phnumber1);
+                        //Creating Bundle object
+                        // uploadImage();
+                        Bundle k = new Bundle();
 
-                    //Storing data into bundle
-                    k.putString("pname", editTextName1);
-                    k.putString("phnum", editTextUsername1);
-                    k.putString("landmark", acTextView1);
-                    k.putString("ZipCode",zipcode);
-                   k.putString("abc",j.toString());
-                   k.putString("notice",tv.getText().toString());
-                    //Creating Intent object
-                    Intent in = new Intent(Dashboard.this, ConfirmationMassage.class);
-                    //Storing bundle object into intent
-                    in.putExtras(k);
-                    startActivity(in);
+                        //Storing data into bundle
+                        k.putString("pname", editTextName1);
+                        k.putString("phnum", editTextUsername1);
+                        k.putString("landmark", acTextView1);
+                        k.putString("ZipCode",zipcode);
+                        k.putString("abc",j.toString());
+                        k.putString("notice",tv.getText().toString());
+                        //Creating Intent object
+                        Intent in = new Intent(Dashboard.this, ConfirmationMassage.class);
+                        //Storing bundle object into intent
+                        in.putExtras(k);
+                        startActivity(in);
 
+
+                    }
 
                 }
+                else
+                {
+                    Toast.makeText(Dashboard.this, "No Connection", Toast.LENGTH_SHORT).show();
+                }
 
-                // uploadImage();
+
+
+              //  uploadImage();
+
+            }
+        });
+
+        buttonUpload1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (internet_conn.isConnectingToInternet() == true) {
+
+                    uploadImage1();
+                }
+                else
+                {
+                    Toast.makeText(Dashboard.this, "No Connection", Toast.LENGTH_SHORT).show();
+                }
+
+
+
 
             }
         });
@@ -365,7 +555,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         //  floatingActionButton1 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
         // floatingActionButton2 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
         floatingActionButton3 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item3);
-        // floatingActionButton4 =(FloatingActionButton)findViewById(R.id.material_design_floating_action_menu_item4);
+        floatingActionButton4 =(FloatingActionButton)findViewById(R.id.material_design_floating_action_menu_item4);
         floatingActionButton5 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item5);
         floatingActionButton6 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item6);
        /* floatingActionButton1.setOnClickListener(new View.OnClickListener()
@@ -398,19 +588,29 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(labcat);
             }
         });
-       /* floatingActionButton4.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent selecttest=new Intent(Dashboard.this,SelectTestDisease.class);
+                Intent selecttest=new Intent(Dashboard.this,Dashboard.class);
                 startActivity(selecttest);
+                recentadvice.setVisibility(View.VISIBLE);
+                spinnerfav.setVisibility(View.VISIBLE);
+
+                cameradiscription.setVisibility(View.GONE);  //show layout2
+                buttonUpload1.setVisibility(View.GONE);
+                buttonUpload.setVisibility(View.VISIBLE);
+                iv_attachment.setVisibility(View.GONE);
+                floatingActionButton4.setVisibility(View.GONE);
+                floatingActionButton5.setVisibility(View.VISIBLE);
+
 
             }
-        });*/
+        });
         floatingActionButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String editTextName1 = editTextName.getText().toString();
+                /*String editTextName1 = editTextName.getText().toString();
                 String editTextUsername1 = editTextUsername.getText().toString();
 
                 String acTextView1 = acTextView.getText().toString();
@@ -432,13 +632,27 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     b.putString("landmark", acTextView1);
                     b.putString("ZipCode",zipcode);
                     //Creating Intent object
-                    Intent in = new Intent(Dashboard.this,RefUploadPhoto1.class);
+                            Intent in = new Intent(Dashboard.this,RefUploadPhoto1.class);
                     //Storing bundle object into intent
                     in.putExtras(b);
                     startActivity(in);
 
 
                 }
+*/
+                Intent in = new Intent(Dashboard.this,Dashboard.class);
+
+                recentadvice.setVisibility(View.GONE);
+                spinnerfav.setVisibility(View.GONE);
+                favraoutetitle.setVisibility(View.GONE);
+                cameradiscription.setVisibility(View.VISIBLE);  //show layout2
+                buttonUpload.setVisibility(View.GONE);
+                buttonUpload1.setVisibility(View.VISIBLE);
+                iv_attachment.setVisibility(View.VISIBLE);
+                floatingActionButton4.setVisibility(View.VISIBLE);
+                floatingActionButton5.setVisibility(View.GONE);
+
+
 
 
 
@@ -453,6 +667,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(setfav);
             }
         });
+
+
 
         //set name on profile USING SHAREPREFERENCE
 
@@ -475,6 +691,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences profile = getSharedPreferences(UserInformation.user, MODE_PRIVATE);
+        String profile1 = profile.getString("text", null);
+        email2 = profile.getString("name1", null);
         TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textView);
         txtProfileName.setText("Hi " + email2 );
 
@@ -490,7 +710,21 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
 
         acTextView = (AutoCompleteTextView) findViewById(R.id.autoComplete);
-        acTextView.setAdapter(new SuggestionAdapter1(this, acTextView.getText().toString()));
+        acTextView.setAdapter(new SuggestionAdapterState(this, acTextView.getText().toString()));
+
+        acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                autostate= (String) parent.getItemAtPosition(position);
+                Toast.makeText(Dashboard.this,"hi "+autostate,Toast.LENGTH_LONG).show();
+
+            }
+        });
+//SuggestionAdapter1
+        acTextView1 = (AutoCompleteTextView) findViewById(R.id.autoComplete1);
+        acTextView1.setAdapter(new SuggestionAdapterCity(this, acTextView1.getText().toString()));
+        acTextView2 = (AutoCompleteTextView) findViewById(R.id.autoComplet2);
+        acTextView2.setAdapter(new SuggestionAdapterArea(this, acTextView2.getText().toString()));
 
         MobileProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -583,6 +817,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 Gson mGson = builder.create();
                 spinnerData1 = Arrays.asList(mGson.fromJson(response, DataObject1[].class));
                 spinner = (Spinner) findViewById(R.id.spinner);
+
                 //display first question to the user
                 if (null != spinnerData1) {
 
@@ -603,6 +838,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                             String item = String.valueOf(parent.getItemAtPosition(position));
                             String p = item.toString();
                             final String name1 = d1.getPincode();
+                            Log.d("pincode id",d1.getId().toString());
                             //remmember this points
                             Toast.makeText(getApplicationContext(),"you selected"+name1.toString(),Toast.LENGTH_LONG).show();
 
@@ -692,6 +928,138 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         queue1.add(stringRequest1);
     }
 
+
+    /*private void requestJsonObjectCity() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, PATH_TO_SERVER1, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                GsonBuilder builder = new GsonBuilder();
+                Gson mGson = builder.create();
+                spinnerData1 = Arrays.asList(mGson.fromJson(response, DataObject1[].class));
+                spinner = (Spinner) findViewById(R.id.spinnerCity);
+                //display first question to the user
+                if (null != spinnerData1) {
+
+                    assert spinner != null;
+                    spinner.setVisibility(View.VISIBLE);
+                    SpinnerAdapter9 spinnerAdapter = new SpinnerAdapter9(Dashboard.this, spinnerData1);
+                    spinner.setAdapter(spinnerAdapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            final String selected1 = parent.getItemAtPosition(position).toString();
+                            // String Text = String.valueOf(selected1.getSelectedItem());
+                            //  String value = String.valueOf(selected1.getString(0));
+
+                            d1 = (DataObject1) parent.getItemAtPosition(position);
+                            String a = spinner.getItemAtPosition(position).toString();
+                            String item = String.valueOf(parent.getItemAtPosition(position));
+                            String p = item.toString();
+                            final String name1 = d1.getPincode();
+                            Log.d("pincode id",d1.getId().toString());
+                            //remmember this points
+                            Toast.makeText(getApplicationContext(),"you selected"+name1.toString(),Toast.LENGTH_LONG).show();
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                    final String city = spinner.getSelectedItem().toString();
+                    //    Toast.makeText(getApplicationContext(),"you selected"+city.toString(),Toast.LENGTH_LONG).show();
+
+                    d1 = (DataObject1) (spinner = (Spinner) findViewById(R.id.spinner)).getSelectedItem();
+                    d1.getPincode();
+                    Toast.makeText(getApplication(), "you selected " + d1.getPincode(), Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(getApplication(),"you"+b,Toast.LENGTH_LONG).show();
+                   *//* String Text = String.valueOf(spinner.getSelectedItem());
+                    Toast.makeText(getApplication(),"you"+Text.toString(),Toast.LENGTH_LONG).show();*//*
+                 *//* a1=spinner.getSelectedItem().toString();
+*//*
+//
+                }
+
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringRequest1);
+    }
+
+*/
+    /*private void requestJsonObjectArea() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, PATH_TO_SERVER1, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                GsonBuilder builder = new GsonBuilder();
+                Gson mGson = builder.create();
+                spinnerData1 = Arrays.asList(mGson.fromJson(response, DataObject1[].class));
+                spinner = (Spinner) findViewById(R.id.spinnerArea);
+                //display first question to the user
+                if (null != spinnerData1) {
+
+                    assert spinner != null;
+                    spinner.setVisibility(View.VISIBLE);
+                    SpinnerAdapter9 spinnerAdapter = new SpinnerAdapter9(Dashboard.this, spinnerData1);
+                    spinner.setAdapter(spinnerAdapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            final String selected1 = parent.getItemAtPosition(position).toString();
+                            // String Text = String.valueOf(selected1.getSelectedItem());
+                            //  String value = String.valueOf(selected1.getString(0));
+
+                            d1 = (DataObject1) parent.getItemAtPosition(position);
+                            String a = spinner.getItemAtPosition(position).toString();
+                            String item = String.valueOf(parent.getItemAtPosition(position));
+                            String p = item.toString();
+                            final String name1 = d1.getPincode();
+                            Log.d("pincode id",d1.getId().toString());
+                            //remmember this points
+                            Toast.makeText(getApplicationContext(),"you selected"+name1.toString(),Toast.LENGTH_LONG).show();
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                    final String city = spinner.getSelectedItem().toString();
+                    //    Toast.makeText(getApplicationContext(),"you selected"+city.toString(),Toast.LENGTH_LONG).show();
+
+                    d1 = (DataObject1) (spinner = (Spinner) findViewById(R.id.spinner)).getSelectedItem();
+                    d1.getPincode();
+                    Toast.makeText(getApplication(), "you selected " + d1.getPincode(), Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(getApplication(),"you"+b,Toast.LENGTH_LONG).show();
+                   *//* String Text = String.valueOf(spinner.getSelectedItem());
+                    Toast.makeText(getApplication(),"you"+Text.toString(),Toast.LENGTH_LONG).show();*//*
+                 *//* a1=spinner.getSelectedItem().toString();
+*//*
+//
+                }
+
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringRequest1);
+    }
+*/
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp = ((BitmapDrawable) iv_attachment.getDrawable()).getBitmap();
@@ -701,14 +1069,16 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         return encodedImage;
     }
 
+
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        this.bitmap = file;
-        this.file_name = filename;
+        this.bitmap=file;
+        this.file_name=filename;
         iv_attachment.setImageBitmap(file);
 
-        String path = Environment.getExternalStorageDirectory() + File.separator + "Hospital" + File.separator;
-        imageutils.createImage(file, filename, path, false);
+        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file,filename,path,false);
     }
+
 
     private void uploadImage() {
         class UploadImage extends AsyncTask<Bitmap, Void, String> {
@@ -812,7 +1182,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
 
                 String result = rh.sendPostRequest(UPLOAD_URL, data);
-
+               Log.d("resultdata1",result);
                 return result;
             }
         }
@@ -839,11 +1209,116 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         startActivity(I);
     }
 
+
+    private void uploadImage1(){
+        class UploadImage1 extends AsyncTask<Bitmap,Void,String> {
+
+
+            RequestHandler rh = new RequestHandler();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(Dashboard.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(final String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Dashboard.this);
+
+                // Setting Dialog Title
+                alertDialog.setTitle("Your Information...");
+            /*    Random rand = new Random();
+
+                int  n = rand.nextInt(00145) + 1;
+
+                 count=String.valueOf(n);
+                Log.d("count",String.valueOf(n));*/
+                Log.d("countref",String.valueOf(n));
+                // Setting Dialog Message
+                alertDialog.setMessage("Your Reference id is "+String.valueOf(n));
+
+                // Setting Icon to Dialog
+                //alertDialog.setIcon(R.drawable.save);
+
+                // Setting Positive "Yes" Button
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User pressed YES button. Write Logic Here
+                        Intent intentt = new Intent(Dashboard.this, Thankyou.class);
+                        //Storing bundle object into intent
+                        //  intentt.putExtras(bb);
+                        startActivity(intentt);
+
+
+                     /*  Intent i=new Int ent(Main2Activity.this,ActivityMenuList.class);
+                        startActivity(i);*/
+                        Toast.makeText(getApplicationContext(),"thanks",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                /*// Setting Negative "NO" Button
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User pressed No button. Write Logic Here
+                        Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+
+                // Setting Netural "Cancel" Button
+                alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User pressed Cancel button. Write Logic Here
+                        Toast.makeText(getApplicationContext(), "You clicked on Cancel",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
+            }
+
+            @Override
+            protected String doInBackground(Bitmap... params) {
+                Bitmap bitmap = params[0];
+                // String uploadImage = image_attachment(0,null,bitmap,Uri);
+                String uploadImage = getStringImage(bitmap);
+                Random rand = new Random();
+
+                n = rand.nextInt(00145) + 1;
+                count=String.valueOf(n);
+                String count=String.valueOf(n);
+                Log.d("count",String.valueOf(n));
+                HashMap<String,String> data = new HashMap<>();
+
+                data.put(UPLOAD_KEY1, uploadImage);
+                data.put(ref,count);
+
+                String result = rh.sendPostRequest(UPLOAD_URL1,data);
+                Log.d("resultdata",result);
+                return result;
+            }
+        }
+
+        UploadImage1 ui = new UploadImage1();
+        ui.execute(bitmap);
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        imageutils.request_permission_result(requestCode, permissions, grantResults);
+    }
+
     @Override
     public void onPositiveClick2(int position) {
         this.position = position;
 
-        /** Getting the reference of the textview from the main layout */
+        /** Getting the reference of the textvie from the main layout */
 
 
         /** Setting the selected android version in the textview */
@@ -883,29 +1358,46 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         }
         else if (position==1)
         {
-            TextView tekst = (TextView) findViewById(R.id.editText1);
-            StringBuffer b=new StringBuffer();
-            SQLITEHELPER = new SQLiteHelper(getApplicationContext());
-            Cursor res=SQLITEHELPER.getAll();
-            if (res != null)
+            sharedPreferences = getSharedPreferences("Fav1", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
 
-                while (res.moveToNext())
-                {
-                    // b.append(res.getString(0));
-                    b.append(res.getString(1));
-                    b.append("\n");
+            boolean  firstTime=sharedPreferences.getBoolean("first", true);
+            if(firstTime) {
+                editor.putBoolean("first",false);
+                editor.commit();  //or  editor.apply();
+                Intent intent = new Intent(getApplicationContext(), Fav5.class);
+                startActivity(intent);
+            }
+            else
+            {
+                TextView tekst = (TextView) findViewById(R.id.editText1);
+                StringBuffer b=new StringBuffer();
+                SQLITEHELPER = new SQLiteHelper(getApplicationContext());
+                Cursor res=SQLITEHELPER.getAll();
+                if (res != null)
+
+                    while (res.moveToNext())
+                    {
+                        // b.append(res.getString(0));
+
+                   /* b.append(res.getString(1));
+                    b.append("\n");*/
+                        String emailList=res.getString(1);
+                        emailList=emailList.replaceAll(",", "\n");
+                        b.append(emailList);
+
 //                   /* String a=res.getString(0);
 //                    String b =res.getString(1);*/
-                }
+                    }
 
 
-            //  String[] text = SQLITEHELPER.getAppCategoryDetail(); //this is the method to query
+                //  String[] text = SQLITEHELPER.getAppCategoryDetail(); //this is the method to query
 
-            SQLITEHELPER.close();
-            // set text to your TextView
-            // set text to your TextView
-            //tekst.setText(b.toString());\
-            j=b.toString();
+                SQLITEHELPER.close();
+                // set text to your TextView
+                // set text to your TextView
+                //tekst.setText(b.toString());\
+                j=b.toString();
             /*Bundle c=new Bundle();
             c.getString("abc",b.toString());
             c.putString("pname", editTextName.getText().toString());
@@ -918,10 +1410,13 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             Toast.makeText(Dashboard.this,"you "+b.toString(),Toast.LENGTH_LONG).show();
 */
 
-            //Toast.makeText(adapterView.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                //Toast.makeText(adapterView.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
           /*  Intent i=new Intent(this,MainActivity.class);
             startActivity(i);*/
+
+            }
+
 
         }
         else if (position==2)

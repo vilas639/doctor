@@ -19,10 +19,29 @@ import android.widget.Toast;
 
 import com.example.shree.materialdesign8.vinod.navigationdrawer.Dashboard;
 import com.example.shree.materialdesign8.vinod1.alertregistration.LoginAlert;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1a;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1h;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1o;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1s;
+import com.example.shree.materialdesign8.vinod1.alertregistration.UserInformation1v;
 import com.example.shree.materialdesign8.vinod11.editprofile.RegisterProfile;
 import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.ShowDetailsActivity;
 import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.Specility;
 import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter3;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter33;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter4;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter44;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter5;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter55;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter6;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter66;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter7;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter77;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter8;
+import com.example.shree.materialdesign8.vinod6.autocompletetextviewjson.SuggestionAdapter88;
 import com.maksim88.passwordedittext.PasswordEditText;
 
 import java.io.BufferedReader;
@@ -99,1327 +118,124 @@ public class Otp extends AppCompatActivity {
 
                 AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
                 alertDialogAndroid.show();
-*/
-                final CharSequence[] items = {"Allopathic Doctor", "Ayush Medicine Practitioner","Homeopathy","Undergraduate Student","Siddha Medicine","Vetrinary Doctor","Other"};
+*/            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
+                View mView = layoutInflaterAndroid.inflate(R.layout.user_input_dialog_box2,null);
+                final AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
+                alertDialogBuilderUserInput.setView(mView);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
+                final Button uname=(Button)mView.findViewById(R.id.userInputDialog);
+                final Button ulastname=(Button)mView.findViewById(R.id.userlastname);
 
-                builder.setTitle("I Am-");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
+                uname.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (items[item].equals("Allopathic Doctor")) {
-
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.allopathic, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                             acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-                            /*AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this,acTextView.getText().toString()));
-*/
-                           auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-
-                                alertDialogBuilderUserInput
-                                        .setCancelable(false)
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialogBox, int id) {
-                                                // ToDo get user input here
-
-                                                if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                    pwText.setError("Please Enter UserName & Password.");
-                                                    Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                    pwText.requestFocus();
-                                                    return;
-                                                }
-                                                else
-                                                {
-
-                                                }
-                                                LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                                View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                                AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                                alertDialogBuilderUserInput.setView(mView);
-
-                                                alertDialogBuilderUserInput
-                                                        .setCancelable(false)
-                                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                            public void onClick(DialogInterface dialogBox, int id) {
-                                                                // ToDo get user input here
-                                                                SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                                String restoredText = prefs.getString("text", null);
-                                                                Dfname = prefs.getString("name1", null);
-                                                                Dlname = prefs.getString("lastname",null);
-                                                                Dcity =prefs.getString("city",null);
-                                                                Dmob =prefs.getString("mobile",null);
-
-
-                                                                insertuser();
-
-                                                                AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                builder.setTitle("Registration Complete..!!");
-                                                                builder.setCancelable(true);
-                                                                builder.setMessage(getResources().getString(R.string.registration));
-                                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                        Intent i = new Intent(Otp.this, Login.class);
-                                                                        startActivity(i);
-                                                                    }
-                                                                });
-                                                                builder.setNegativeButton("Cancel", null);
-                                                                builder.show();
-
-                                                            }
-
-                                                            private void insertuser() {
-
-                                                                RestAdapter adapter = new RestAdapter.Builder()
-                                                                        .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                        .build(); //Finally building the adapter
-
-                                                                //Creating object for our interface
-                                                                RegisterAPI1 api = adapter.create(RegisterAPI1.class);
-//Hi 
-                                                                api.insertUser(Dfname.toString(),
-                                                                        Dlname.toString(),
-                                                                        Dmob.toString(),
-                                                                        Dcity.toString(),
-                                                                        Dfname.toString(),
-                                                                        "Allopathic Doctor",
-                                                                        acTextView.getText().toString(),
-                                                                        auto.getText().toString(),
-                                                                        Inputuser.getText().toString(),
-                                                                        Email.getText().toString(),
-                                                                        pwText.getText().toString(),
-                                                                        repwText.getText().toString(),
-                                                                        //
-                                                                        new Callback<Response>() {
-                                                                            @Override
-                                                                            public void success(Response result, Response response2) {
-                                                                                BufferedReader reader = null;
-
-                                                                                //An string to store output from the server
-                                                                                String output = "";
-
-                                                                                try {
-                                                                                    //Initializing buffered reader
-                                                                                    reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                    //Reading the output in the string
-                                                                                    output = reader.readLine();
-                                                                                } catch (IOException e) {
-                                                                                    e.printStackTrace();
-                                                                                }
-
-                                                                                //Displaying the output as a toast
-                                                                                Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                            }
-
-                                                                            @Override
-                                                                            public void failure(RetrofitError error) {
-                                                                                Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                            }
-                                                                        });
-
-                                                            }
-
-
-
-
-
-                                                        });
-
-                                                alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                        new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int id) {
-                                                                dialog.cancel();
-                                                            }
-                                                        });
-
-
-                                                alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                                new DialogInterface.OnClickListener() {
-
-                                                                    public void onClick(DialogInterface dialogBox, int id) {
-
-                                                                        AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                        builder.setTitle("Registration Complete..!!");
-                                                                        builder.setCancelable(true);
-                                                                        builder.setMessage(getResources().getString(R.string.registration));
-                                                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                            @Override
-                                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                                Intent i = new Intent(Otp.this, Login.class);
-                                                                                startActivity(i);
-                                                                            }
-                                                                        });
-                                                                        builder.setNegativeButton("Cancel", null);
-                                                                        builder.show();
-                                                                    }
-                                                                });
-
-
-                                                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                                alertDialogAndroid.show();
-
-                                            }
-
-                                        })
-
-                                        .setNegativeButton("Cancel",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialogBox, int id) {
-                                                        dialogBox.cancel();
-                                                    }
-                                                });
-
-
-                                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                alertDialogAndroid.show();
-
-                            }
-
-
-
-
-                        else if (items[item].equals("Ayush Medicine Practitioner"))
-                        {
-
-
-
-
-                            //Intent i=new Intent(LoginAlert.this, SpecilityAyush1.class);
-                            //startActivity(i);
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.ayush, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-                            /*AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this,acTextView.getText().toString()));
-*/
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-
-
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter UserName & Password.");
-                                                Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI2 api = adapter.create(RegisterAPI2.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-                                                            dialog.cancel();
-
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialogBox, int id) {
-
-                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                    builder.setTitle("Registration Complete..!!");
-                                                                    builder.setCancelable(true);
-                                                                    builder.setMessage(getResources().getString(R.string.registration));
-                                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            Intent i = new Intent(Otp.this, Login.class);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    });
-                                                                    builder.setNegativeButton("Cancel", null);
-                                                                    builder.show();
-                                                                }
-                                                            });
-
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-
-
-
-                        }
-
-                        else if (items[item].equals("Homeopathy")) {
-
-
-                            //Intent i=new Intent(LoginAlert.this, SpecilityHomopathic.class);
-                            //startActivity(i);
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.homeopathy, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-                            /*AutoCompleteTextView acTextView = (AutoCompleteTextView) findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this,acTextView.getText().toString()));
-*/
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter UserName & Password.");
-                                                Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-
-
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI3 api = adapter.create(RegisterAPI3.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-                                                            dialog.cancel();
-
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialogBox, int id) {
-
-                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                    builder.setTitle("Registration Complete..!!");
-                                                                    builder.setCancelable(true);
-                                                                    builder.setMessage(getResources().getString(R.string.registration));
-                                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            Intent i = new Intent(Otp.this, Login.class);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    });
-                                                                    builder.setNegativeButton("Cancel", null);
-                                                                    builder.show();
-
-                                                                }
-                                                            });
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-
-
-
-
-
-                        }
-
-                        else if (items[item].equals("Undergraduate Student")) {
-
-                            //Intent i=new Intent(LoginAlert.this, SelectQualification.class);
-                            //startActivity(i);
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.undergraduate, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter UserName & Password.");
-                                                Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-
-
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI4 api = adapter.create(RegisterAPI4.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-
-                                                            dialog.cancel();
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialogBox, int id) {
-
-
-                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                    builder.setTitle("Registration Complete..!!");
-                                                                    builder.setCancelable(true);
-                                                                    builder.setMessage(getResources().getString(R.string.registration));
-                                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            Intent i = new Intent(Otp.this, Login.class);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    });
-                                                                    builder.setNegativeButton("Cancel", null);
-                                                                    builder.show();
-
-                                                                }
-                                                            });
-
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-
-
-
-                        }
-                        else if (items[item].equals("Siddha Medicine")) {
-
-                            //Intent i=new Intent(LoginAlert.this, SpecilitySiddha.class);
-                            //startActivity(i);
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.siddha, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter UserName & Password.");
-                                                Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI5 api = adapter.create(RegisterAPI5.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-
-                                                            dialog.cancel();
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialogBox, int id) {
-
-                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                    builder.setTitle("Registration Complete..!!");
-                                                                    builder.setCancelable(true);
-                                                                    builder.setMessage(getResources().getString(R.string.registration));
-                                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            Intent i = new Intent(Otp.this, Login.class);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    });
-                                                                    builder.setNegativeButton("Cancel", null);
-                                                                    builder.show();
-
-
-                                                                }
-                                                            });
-
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-
-
-                        }
-                        else if (items[item].equals("Vetrinary Doctor")) {
-
-
-                            // Intent i=new Intent(LoginAlert.this, SpecilityVetrinary.class);
-                            //startActivity(i);
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.vertrinary, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter UserName & Password.");
-                                                Toast.makeText(c,"Please EnterUsername & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI6 api = adapter.create(RegisterAPI6.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-                                                            dialog.cancel();
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(DialogInterface dialogBox, int id) {
-
-                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                                    builder.setTitle("Registration Complete..!!");
-                                                                    builder.setCancelable(true);
-                                                                    builder.setMessage(getResources().getString(R.string.registration));
-                                                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                            Intent i = new Intent(Otp.this, Login.class);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    });
-                                                                    builder.setNegativeButton("Cancel", null);
-                                                                    builder.show();
-
-                                                                }
-                                                            });
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-                        }
-                        else if (items[item].equals("Other")) {
-                            //dialog.dismiss();
-
-                            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                            View mView = layoutInflaterAndroid.inflate(R.layout.other, null);
-                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                            alertDialogBuilderUserInput.setView(mView);
-
-                            Inputuser =(EditText)mView.findViewById(R.id.userInputUname);
-                            Email =(EditText)mView.findViewById(R.id.userInputemail);
-                            pwText = (PasswordEditText) mView.findViewById(R.id.input_password);
-                            repwText = (PasswordEditText) mView.findViewById(R.id.input_password2);
-                            acTextView = (AutoCompleteTextView) mView.findViewById(R.id.userInputDialog);
-                            acTextView.setAdapter(new SuggestionAdapter(Otp.this, acTextView.getText().toString()));
-
-                            auto = (MultiAutoCompleteTextView) mView.findViewById(R.id.subspeciality);
-                            auto.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            auto.setThreshold(1);
-                            auto.setAdapter(new SuggestionAdapter(Otp.this, auto.getText().toString()));
-
-                            alertDialogBuilderUserInput
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            // ToDo get user input here
-
-                                            if (TextUtils.isEmpty(pwText.getText().toString())) {
-                                                pwText.setError("Please Enter Username & Password.");
-                                                Toast.makeText(c,"Please Enter Username & Password.",Toast.LENGTH_LONG).show();
-                                                pwText.requestFocus();
-                                                return;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                            LayoutInflater layoutInflaterAndroid1 = LayoutInflater.from(c);
-                                            View mView = layoutInflaterAndroid1.inflate(R.layout.addressactivity, null);
-                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                                            alertDialogBuilderUserInput.setView(mView);
-
-                                            alertDialogBuilderUserInput
-                                                    .setCancelable(false)
-                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-                                                            // ToDo get user input here
-
-                                                            SharedPreferences prefs = getSharedPreferences(LoginAlert.OTP, MODE_PRIVATE);
-                                                            String restoredText = prefs.getString("text", null);
-                                                            Dfname = prefs.getString("name1", null);
-                                                            Dlname = prefs.getString("lastname",null);
-                                                            Dcity =prefs.getString("city",null);
-                                                            Dmob =prefs.getString("mobile",null);
-
-
-                                                            insertuser();
-
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-                                                        }
-
-                                                        private void insertuser() {
-
-                                                            RestAdapter adapter = new RestAdapter.Builder()
-                                                                    .setEndpoint(ROOT_URL) //Setting the Root URL
-                                                                    .build(); //Finally building the adapter
-
-                                                            //Creating object for our interface
-                                                            RegisterAPI7 api = adapter.create(RegisterAPI7.class);
-//Hi
-                                                            api.insertUser(Dfname.toString(),
-                                                                    Dlname.toString(),
-                                                                    Dmob.toString(),
-                                                                    Dcity.toString(),
-                                                                    Dfname.toString(),
-                                                                    "Allopathic Doctor",
-                                                                    acTextView.getText().toString(),
-                                                                    auto.getText().toString(),
-                                                                    Inputuser.getText().toString(),
-                                                                    Email.getText().toString(),
-                                                                    pwText.getText().toString(),
-                                                                    repwText.getText().toString(),
-                                                                    //
-                                                                    new Callback<Response>() {
-                                                                        @Override
-                                                                        public void success(Response result, Response response2) {
-                                                                            BufferedReader reader = null;
-
-                                                                            //An string to store output from the server
-                                                                            String output = "";
-
-                                                                            try {
-                                                                                //Initializing buffered reader
-                                                                                reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
-
-                                                                                //Reading the output in the string
-                                                                                output = reader.readLine();
-                                                                            } catch (IOException e) {
-                                                                                e.printStackTrace();
-                                                                            }
-
-                                                                            //Displaying the output as a toast
-                                                                            Toast.makeText(Otp.this, output, Toast.LENGTH_LONG).show();
-
-                                                                        }
-
-                                                                        @Override
-                                                                        public void failure(RetrofitError error) {
-                                                                            Toast.makeText(Otp.this, error.toString(),Toast.LENGTH_LONG).show();
-                                                                        }
-                                                                    });
-
-                                                        }
-
-
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNeutralButton("Cancel",
-                                                    new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int id) {
-                                                            dialog.cancel();
-                                                        }
-                                                    });
-
-                                            alertDialogBuilderUserInput.setNegativeButton("Skip",
-                                                    new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogBox, int id) {
-
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
-                                                            builder.setTitle("Registration Complete..!!");
-                                                            builder.setCancelable(true);
-                                                            builder.setMessage(getResources().getString(R.string.registration));
-                                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(DialogInterface dialog, int which) {
-                                                                    Intent i = new Intent(Otp.this, Login.class);
-                                                                    startActivity(i);
-                                                                }
-                                                            });
-                                                            builder.setNegativeButton("Cancel", null);
-                                                            builder.show();
-
-                                                        }
-                                                    });
-
-
-                                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                                            alertDialogAndroid.show();
-
-                                        }
-                                    })
-
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialogBox, int id) {
-                                                    dialogBox.cancel();
-                                                }
-                                            });
-
-                            AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                            alertDialogAndroid.show();
-
-                        }
+                    public void onClick(View v) {
+                        eduction();
                     }
                 });
-                builder.show();
+
+                ulastname.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i=new Intent(Otp.this, SelectQualification.class);
+                        startActivity(i);
+                    }
+                });
+                alertDialogBuilderUserInput
+                        .setCancelable(true);
+
+
+
+
+
+                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                alertDialogAndroid.show();
+
+
+
             }
 
 
         });
 
+    }
+
+
+    void eduction()
+    {
+        final CharSequence[] items = {"Allopathic Doctor", "Ayush Medicine Practitioner","Homeopathy","Siddha Medicine","Vetrinary Doctor","Other"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Otp.this);
+        builder.setCancelable(false);
+        builder.setTitle("I Am-");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Allopathic Doctor")) {
+
+                    Intent i=new Intent(Otp.this, UserInformation1.class);
+                    startActivity(i);
+
+                }
+
+
+
+
+                else if (items[item].equals("Ayush Medicine Practitioner"))
+                {
+                    Intent i=new Intent(Otp.this, UserInformation1a.class);
+                    startActivity(i);
+
+
+
+                    //Intent i=new Intent(LoginAlert.this, SpecilityAyush1.class);
+                    //startActivity(i);
+
+
+                }
+
+                else if (items[item].equals("Homeopathy")) {
+
+
+                    Intent i=new Intent(Otp.this, UserInformation1h.class);
+                    startActivity(i);
+
+
+                }
+
+               /* else if (items[item].equals("Undergraduate Student")) {
+
+                    Intent i=new Intent(Otp.this, SelectQualification.class);
+                    startActivity(i);
+                }*/
+                else if (items[item].equals("Siddha Medicine")) {
+
+                    //Intent i=new Intent(LoginAlert.this, SpecilitySiddha.class);
+                    //startActivity(i);
+
+                    Intent i=new Intent(Otp.this, UserInformation1s.class);
+                    startActivity(i);
+
+
+                }
+                else if (items[item].equals("Vetrinary Doctor")) {
+
+
+                    // Intent i=new Intent(LoginAlert.this, SpecilityVetrinary.class);
+                    //startActivity(i);
+                    Intent i=new Intent(Otp.this, UserInformation1v.class);
+                    startActivity(i);
+
+
+                }
+                else if (items[item].equals("Other")) {
+                    //dialog.dismiss();
+                    Intent i=new Intent(Otp.this, UserInformation1o.class);
+                    startActivity(i);
+
+                }
+            }
+        });
+        builder.show();
     }
     void showtoast(String title,String message)
     {

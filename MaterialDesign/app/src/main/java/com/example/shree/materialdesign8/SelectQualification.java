@@ -29,7 +29,15 @@ public class SelectQualification extends Activity implements AlertDialogRadio.Al
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_qualification);
-
+        Button iam=(Button)findViewById(R.id.iam);
+        iam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(SelectQualification.this,Otp.class);
+                finish();
+                startActivity(i);
+            }
+        });
         RadioGroup rg = (RadioGroup) findViewById(R.id.radiogroup);
         radioBtn=(RadioButton)findViewById(R.id.radioButton1);
         radioBtn1=(RadioButton)findViewById(R.id.radioButton2);
@@ -68,7 +76,7 @@ public class SelectQualification extends Activity implements AlertDialogRadio.Al
                         break;
                     case R.id.radioButton2:
                         // do operations specific to this selection
-                        Toast.makeText(getApplicationContext(), "You Select Student", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext(), "You Select Student", Toast.LENGTH_SHORT).show();
                         View.OnClickListener listener1 = new View.OnClickListener()
                         {
                             @Override

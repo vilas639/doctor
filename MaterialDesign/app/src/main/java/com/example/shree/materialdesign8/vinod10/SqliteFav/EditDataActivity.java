@@ -58,7 +58,7 @@ public class EditDataActivity extends Activity {
 
         idtextview = (TextView)findViewById(R.id.textview1);
 
-        GetSQliteQuery = "SELECT * FROM demoTable15" ;
+        GetSQliteQuery = "SELECT * FROM demoTable20 " ;
 
         SQLITEDATABASE = openOrCreateDatabase("DemoDataBase", Context.MODE_PRIVATE, null);
 
@@ -114,7 +114,7 @@ public class EditDataActivity extends Activity {
 
                 UserID = Integer.parseInt(ConvertUserID);
 
-                UpdateRecordQuery = "UPDATE demoTable15 SET name='" + GetName + "' WHERE id=" + UserID + ";";
+                UpdateRecordQuery = "UPDATE demoTable20 SET name='" + GetName + "' WHERE id=" + UserID + ";";
 
                 CheckEditTextIsEmptyOrNot(GetName);
 
@@ -148,7 +148,7 @@ public class EditDataActivity extends Activity {
 
                 UserID = Integer.parseInt(ConvertUserID);
 
-                DeleteQuery = "DELETE FROM demoTable15 WHERE id=" + UserID + ";";
+                DeleteQuery = "DELETE FROM demoTable20 WHERE id=" + UserID + ";";
 
                 SQLITEDATABASE.execSQL(DeleteQuery);
 

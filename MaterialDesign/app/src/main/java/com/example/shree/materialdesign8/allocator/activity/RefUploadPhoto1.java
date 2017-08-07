@@ -152,6 +152,10 @@ public class RefUploadPhoto1 extends AppCompatActivity implements Imageutils.Ima
         this.file_name=filename;
         iv_attachment.setImageBitmap(file);
 
+
+
+
+
         String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
         imageutils.createImage(file,filename,path,false);
     }

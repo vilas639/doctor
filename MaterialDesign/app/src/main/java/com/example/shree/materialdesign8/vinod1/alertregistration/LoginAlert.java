@@ -76,58 +76,16 @@ public class LoginAlert extends AppCompatActivity {
                 editor1.putString("mobile", mobile.getText().toString());
                 editor1.commit();
 
-
-                LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
-                View mView = layoutInflaterAndroid.inflate(R.layout.activity_alertnext_flc, null);
-                AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
-                alertDialogBuilderUserInput.setView(mView);
-
-                final EditText uname=(EditText)mView.findViewById(R.id.userInputname);
-                final EditText ulastname=(EditText)mView.findViewById(R.id.userInputlast);
-                final EditText ucity=(EditText)mView.findViewById(R.id.userInputDialogcity);
-
-
-
                 String m = mobile.getText().toString().trim();
                 if (m.isEmpty() || !isValidMobile(m) || mobile.getText().toString().toString().length() < 10 || m.length() > 13) {
                     mobile.setError("Please Enter Valid Mobile Number");
 
 
                 } else {
-                    alertDialogBuilderUserInput
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialogBox, int id) {
-                                    // ToDo get user input her
 
-                                    if (uname.getText().toString().length() == 0 && ulastname.getText().toString().length() == 0 && ucity.getText().toString().length() == 0)
-                                    {
-                                        Toast.makeText(getApplicationContext(), "plz enter all details", Toast.LENGTH_SHORT).show();
-                                    } else {
+                    Intent I=new Intent(LoginAlert.this,UserInformation.class);
+                    startActivity(I);
 
-                                        SharedPreferences.Editor editor = getSharedPreferences(OTP, MODE_PRIVATE).edit();
-                                        editor.putString("name1", uname.getText().toString());
-                                        editor.putString("lastname", ulastname.getText().toString());
-                                        editor.putString("city", ucity.getText().toString());
-
-                                        editor.commit();
-
-                                        Intent i = new Intent(LoginAlert.this, Otp.class);
-                                        startActivity(i);
-                                    }
-
-                                }
-                            })
-
-                            .setNegativeButton("Cancel",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogBox, int id) {
-                                            dialogBox.cancel();
-                                        }
-                                    });
-
-                    AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-                    alertDialogAndroid.show();
                 }
             }
 

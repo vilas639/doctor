@@ -101,6 +101,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ImageAttachment1"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Dashboard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
@@ -125,7 +129,8 @@
             android:name=".vinod.navigationdrawer.Dashboard"
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".vinod1.alertregistration.RegisterDialog"
             android:configChanges="orientation"
@@ -179,11 +184,8 @@
         <activity
             android:name=".Otp"
             android:label="Send Sms"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Otp1"
-            android:label="Send Sms"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".allocator.activity.ActivityCategoryList"
             android:screenOrientation="portrait"
@@ -291,7 +293,8 @@
             android:label="Confirmation Message" />
         <activity
             android:name=".vinod.SqliteFav.MainActivity"
-            android:label="Inset " />
+            android:label="Insert "
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".vinod.SqliteFav.EditDataActivity"
             android:label="Edit " />
@@ -382,9 +385,50 @@
         <activity
             android:name=".vinod.SqliteFav.ShowDb"
             android:label="Show " />
+        <activity
+            android:name=".vinod7.sqlFav.ShowDb2"
+            android:label="Show " />
+        <activity
+            android:name=".vinod8.sqliteFav.ShowDb3"
+            android:label="Show " />
+        <activity
+            android:name=".vinod9.sqliteFav.ShowDb4"
+            android:label="Show " />
+        <activity
+            android:name=".vinod10.SqliteFav.ShowDb5"
+            android:label="Show " />
         <activity android:name=".vinod11.editprofile.RegisterProfile" />
         <activity android:name=".vinod11.editprofile.EditProfile" />
         <activity android:name=".LoginWithDiff" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1a"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1s"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1h"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1v"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation1o"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".vinod1.alertregistration.UserInformation2"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".vinod2.labcategory.Varify" />
+        <activity android:name=".login.MainActivity" />
+        <activity android:name=".vinod1.alertregistration.Address" />
+        <activity android:name=".vinod1.alertregistration.Address1" />
+        <activity android:name=".vinod6.autocompletetextviewjson.CityState"></activity>
     </application>
 
 </manifest>

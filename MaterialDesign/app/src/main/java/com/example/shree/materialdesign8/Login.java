@@ -168,7 +168,13 @@ public class Login extends ActionBarActivity {
 
         }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(Login.this,Main4Activity.class);
+        finish();
+        startActivity(i);
+    }
 }
 
 

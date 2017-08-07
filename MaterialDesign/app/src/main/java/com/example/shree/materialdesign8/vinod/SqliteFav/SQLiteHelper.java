@@ -18,7 +18,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME1="demoTable10";
     public static final String TABLE_NAME2="demoTable13";
     public static final String TABLE_NAME3="demoTable19";
-    public static final String TABLE_NAME4="demoTable1";
+    public static final String TABLE_NAME4="demoTable20";
 
     public static final String KEY_Name="name";
 
@@ -35,7 +35,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
 
-        String CREATE_TABLE="CREATE TABLE "+TABLE_NAME+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
+         String CREATE_TABLE="CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
         database.execSQL(CREATE_TABLE);
         /*String CREATE_TABLE1="CREATE TABLE "+TABLE_NAME1+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
         database.execSQL(CREATE_TABLE1);*/
@@ -46,7 +46,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         String CREATE_TABLE4="CREATE TABLE "+TABLE_NAME4+" ("+KEY_ID+" INTEGER PRIMARY KEY, "+KEY_Name+" VARCHAR)";
         database.execSQL(CREATE_TABLE4);*/
        // database.execSQL("INSERT INTO demoTable1 (id,name) VALUES(12,'Maleria');");
-        database.execSQL("INSERT INTO demoTable1 (id,name) VALUES(1,'Maleria');");
+        database.execSQL("INSERT INTO demoTable1 (id,name) VALUES(100,'');");
        /* database.execSQL("INSERT INTO demoTable10 (id,name) VALUES(1,'Dengu');");*/
        /* database.execSQL("INSERT INTO demoTable13 (id,name) VALUES(1,'Fever');");
         database.execSQL("INSERT INTO demoTable19 (id,name) VALUES(1,'ChikenGuniya');");
@@ -73,6 +73,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getAll1()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res=  db.rawQuery("Select * from "+TABLE_NAME1,null);
+
+        return res;
+    }
 
     public Cursor getAll2()
     {
@@ -97,13 +104,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getAll1()
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res=  db.rawQuery("Select * from "+TABLE_NAME1,null);
 
-        return res;
-    }
 
 
 }

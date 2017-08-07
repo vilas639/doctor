@@ -59,7 +59,7 @@ public class AlertDialogRadio1 extends DialogFragment {
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
 
         /** Setting a title for the window */
-        b.setTitle("Choose Qualification1");
+        b.setTitle("Choose Qualification");
 
         /** Setting items to the alert dialog */
         b.setSingleChoiceItems(Notification1.code, position, null);
